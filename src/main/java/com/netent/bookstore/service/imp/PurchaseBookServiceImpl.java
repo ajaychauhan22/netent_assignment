@@ -4,6 +4,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.netent.bookstore.config.util.Constants;
@@ -25,11 +27,12 @@ public class PurchaseBookServiceImpl implements PurchaseBookService {
 	@Autowired
 	private PurchaseBookDao purchaseBookDao;
 
-	@Transactional
+	@Transactional(propagation = Propagation.NESTED, isolation = Isolation.READ_UNCOMMITTED)
 	public String purchaseBook(BookOrderDetails purchaseBook) {
 
 		// Validate book id and stock.
 		Book book = purchaseBookDao.getBookById(purchaseBook.getBookId());
+		LOGGER.info(book);
 		if (book != null) {
 			if (book.getQuantity() >= purchaseBook.getQuantity()) {
 				purchaseBookDao.updateBookQuantityById(book.getId(), purchaseBook.getQuantity());
