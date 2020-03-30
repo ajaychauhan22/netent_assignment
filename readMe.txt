@@ -6,7 +6,7 @@
 2. Instructions to launch/run the application
 	A. Import application in eclipse as a Existing maven project.
 	B. Application uses in memory h2 data base to make that persistence change the value of property from (spring.datasource.url=jdbc:h2:mem:testdb)
-	to (spring.datasource.url=jdbc:h2:file:D:/data/demo) in application.properties file. Note that 'jdbc:h2:file:D:/data/demo' is a location of folder
+	to (spring.datasource.url=jdbc:h2:file:D:/data/demo) in application.properties file so that It will be saved data on disc. Note that 'jdbc:h2:file:D:/data/demo' is a location of folder
 	 on application running computer/machine.
 	C. Right click on com.netent.bookstore.Application.java and run as Java program. 
 
