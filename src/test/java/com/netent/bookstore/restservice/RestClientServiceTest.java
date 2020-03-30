@@ -43,4 +43,13 @@ public class RestClientServiceTest {
 		Coverage[] cov = restClientService.callExternalApi(COVERAGE_API_URL, Coverage[].class);
 		assertEquals(2, cov.length);
 	}
+
+	@SuppressWarnings("unchecked")
+	@Test(expected = Exception.class)
+	public void testSearchBookByISBN_should_retry_logic() {
+		Mockito.when(restTemplate.getForEntity(ArgumentMatchers.anyString(), ArgumentMatchers.any(Class.class)))
+				.thenThrow(Exception.class);
+
+		restClientService.callExternalApi(COVERAGE_API_URL, Coverage[].class);
+	}
 }
